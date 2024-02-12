@@ -25,21 +25,24 @@ public class RNExitAppPackage extends TurboReactPackage {
 
     @Override
     public ReactModuleInfoProvider getReactModuleInfoProvider() {
-        return () -> {
-            final Map<String, ReactModuleInfo> moduleInfos = new HashMap<>();
-            boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
-            moduleInfos.put(
-                    RNExitAppImpl.NAME,
-                    new ReactModuleInfo(
-                            RNExitAppImpl.NAME,
-                            RNExitAppImpl.NAME,
-                            false, // canOverrideExistingModule
-                            false, // needsEagerInit
-                            false, // hasConstants
-                            false, // isCxxModule
-                            isTurboModule // isTurboModule
-                    ));
-            return moduleInfos;
+        return new ReactModuleInfoProvider() {
+            @Override
+            public Map<String, ReactModuleInfo> getReactModuleInfos() {
+                final Map<String, ReactModuleInfo> moduleInfos = new HashMap<>();
+                boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
+                moduleInfos.put(
+                        RNExitAppImpl.NAME,
+                        new ReactModuleInfo(
+                                RNExitAppImpl.NAME,
+                                RNExitAppImpl.NAME,
+                                false, // canOverrideExistingModule
+                                false, // needsEagerInit
+                                false, // hasConstants
+                                false, // isCxxModule
+                                isTurboModule // isTurboModule
+                        ));
+                return moduleInfos;
+            }
         };
     }
 }
